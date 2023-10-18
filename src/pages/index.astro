@@ -1,16 +1,49 @@
 ---
-
+import AppLayout from "../layouts/AppLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<AppLayout title="Conversor">
+	<p>Ingresa un valor de temperatura y da click en convertir.</p>
+	<section class="container mt-8">
+		<article class="flex gap-4 align-center border p-6 rounded flex-col">
+			<p class="text-blue-600">Temperatura en Celsius:</p>
+			<input type="text" class="input-celsius border rounded outline-none p-1" placeholder="Ingresa la temperatura...">
+			<button class="btn-conversor-fahrenheit border p-1 rounded bg-green-300">Convertir</button>
+			<p>Temperatura en Fahrenheit:</p>
+			<h3 id="resultado-fahrenheit" class="text-red-600"></h3>
+		</article>
+		<article class="flex gap-4 align-center border p-6 rounded mt-6 flex-col">
+			<p class="text-blue-600">Temperatura en Fahrenheit:</p>
+			<input type="text" class="input-fahrenheit border rounded outline-none p-1"  placeholder="Ingresa la temperatura...">
+			<button class="btn-conversor-celsius border p-1 rounded bg-green-300">Convertir</button>
+			<p>Temperatura en Celsius:</p>
+			<h3 id="resultado-celsius" class="text-red-600"></h3>
+		</article>
+	</section>
+</AppLayout>
+
+<script>
+  const btnConversorFahrenheit = document.querySelector('.btn-conversor-fahrenheit')
+	const inputCelsius = document.querySelector('.input-celsius')
+	const resultadoFahrenheit = document.querySelector('#resultado-fahrenheit')
+
+	const btnConversorCelsius = document.querySelector('.btn-conversor-celsius')
+	const inputFahrenheit = document.querySelector('.input-fahrenheit')
+	const resultadoCelsius = document.querySelector('#resultado-celsius')
+
+
+	btnConversorFahrenheit.addEventListener('click', () => {
+		resultadoFahrenheit.innerHTML = ' ';
+		const celsius = Number(inputCelsius.value);
+
+		const fahrenheit = celsius * 9/5 + 32;
+		resultadoFahrenheit.innerHTML += " " + fahrenheit + " °F";
+	})
+
+	btnConversorCelsius.addEventListener('click', () => {
+		const fahrenheit = Number(inputFahrenheit.value);
+
+		const celsius = (fahrenheit - 32) * 5/9;
+		resultadoCelsius.innerHTML += " " + celsius + " °C";
+	})
+</script>
