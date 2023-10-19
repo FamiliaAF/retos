@@ -1,0 +1,61 @@
+---
+import AppLayout from "../layouts/AppLayout.astro";
+---
+
+<AppLayout title="Login">
+	<section class="container flex mt-8 flex-col gap-6">
+		<input type="email" class="input-email border rounded p-1 outline-none" placeholder="Ingresa tu correo electronico..." required>
+    <input type="password" class="input-password border rounded p-1 outline-none" placeholder="Ingresa tu password...">
+    <button class="btn-login border rounded p-1 w-60 bg-blue-300 text-white">Iniciar sesión</button>
+	</section>
+</AppLayout>
+
+<script>
+  const inputEmail = document.querySelector('.input-email')
+  const inputPassword = document.querySelector('.input-password')
+  const btnLogin = document.querySelector('.btn-login') 
+  const container = document.querySelector('.container')
+  const users = [
+    {
+      name: "Adela Torres",
+      email: "adela@correo.com",
+      password: "123456"
+    },
+    {
+      name: "Pedro Luna",
+      email: "pedro@correo.com",
+      password: "123abc"
+    },
+    {
+      name: "Sofia Carnacho",
+      email: "sofia@correo.com",
+      password: "ert456"
+    }
+  ]
+
+	btnLogin.addEventListener('click', () => {
+		const email = inputEmail.value;		
+    const password = inputPassword.value;
+
+    const filteredUsers = users.filter(user => {
+      return user.email === email && user.password === password;
+    })
+
+    if (filteredUsers.length >= 1) {
+      showMessage(filteredUsers[0].name)
+    } else {
+      alert('Datos incorrectos, intenta de nuevo.')
+      inputEmail.value = '';
+      inputPassword.value = '';
+      inputEmail.focus();
+    }
+})
+
+function showMessage(name) {
+  container.innerHTML = ' ';
+  container.innerHTML = `
+    <h3 class="text-center text-blue-900 text-xl font-semibold">Hola  ${name}!</h3>
+    <p class="text-center">Gracias por visitar mi página :)</p>
+  `;
+}
+</script>
