@@ -1,0 +1,42 @@
+---
+import AppLayout from "../layouts/AppLayout.astro";
+---
+
+<AppLayout title="Mis Pendientes">
+	<section class="container mt-8 flex flex-col">
+		<div class="container-inputs flex mb-3">
+      <input type="text" placeholder="Ingresa una tarea pendiente..." class="input-task w-full p-2 border m-1 rounded outline-none">
+      <button id="btn-add" class="p-2 border m-1 rounded bg-amber-100">+</button>
+    </div>
+    <div class="item-list grid md:grid-cols-3 gap-4"></div>
+	</section>
+</AppLayout>
+
+<script>
+  const inputTask = document.querySelector('.input-task')
+  const btnAdd = document.querySelector('#btn-add')
+  const itemList = document.querySelector('.item-list')
+  let tasksArray = [];
+
+  btnAdd.addEventListener('click', () => {
+    const itemTask = inputTask.value;
+
+    tasksArray.push(itemTask);
+
+    showTasks();
+
+    inputTask.value = '';
+    inputTask.focus();
+  })
+
+  function showTasks() {
+    itemList.innerHTML = '';
+    tasksArray.forEach(task => {
+      itemList.innerHTML += `
+        <article class="bg-green-100 border p-2 rounded text-center">
+          <h3>${task}</h3>
+        </article>
+      `
+    });
+  }
+</script>
